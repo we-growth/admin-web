@@ -68,11 +68,13 @@ export async function updateRule(options?: { [key: string]: any }) {
   });
 }
 
-/** 新建规则 POST /api/rule */
-export async function addRule(options?: { [key: string]: any }) {
-  return request<API.RuleListItem>('/api/rule', {
+/** 新建用户 POST /api/rule */
+export async function addUser(data?: { [key: string]: any }) {
+  return request<any>('/uaa/api/public/register', {
     method: 'POST',
-    ...(options || {}),
+    requestType: 'json',
+    data: data,
+    // ...(options || {}),
   });
 }
 

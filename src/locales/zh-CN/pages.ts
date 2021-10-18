@@ -28,16 +28,19 @@ export default {
   'pages.welcome.alertMessage': '更快更强的重型组件，已经发布。',
   'pages.admin.subPage.title': ' 这个页面只有 admin 权限才能查看',
   'pages.admin.subPage.alertMessage': 'umi ui 现已发布，欢迎使用 npm run ui 启动体验。',
-  'pages.searchTable.createForm.newRule': '新建规则',
+
   'pages.searchTable.updateForm.ruleConfig': '规则配置',
   'pages.searchTable.updateForm.basicConfig': '基本信息',
   'pages.searchTable.updateForm.ruleName.nameLabel': '规则名称',
   'pages.searchTable.updateForm.ruleName.nameRules': '请输入规则名称！',
+
   'pages.userAdmin.users.title': '学员例表',
   'pages.userAdmin.users.name.descLable': '用户名',
   'pages.userAdmin.users.src.descLable': '用户来源',
-
   'pages.userAdmin.users.lastLogin.descLable': '最近登录',
+  'pages.userAdmin.users.newUser': '新建用户',
+  'pages.userAdmin.users.password.required': '密码为必填',
+
   'pages.searchTable.updateForm.ruleDesc.descLabel': '规则描述',
   'pages.searchTable.updateForm.ruleDesc.descPlaceholder': '请输入至少五个字符',
   'pages.searchTable.updateForm.ruleDesc.descRules': '请输入至少五个字符的规则描述！',

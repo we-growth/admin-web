@@ -10,19 +10,19 @@ import type { ProDescriptionsItemProps } from '@ant-design/pro-descriptions';
 import ProDescriptions from '@ant-design/pro-descriptions';
 import type { FormValueType } from './components/UpdateForm';
 import UpdateForm from './components/UpdateForm';
-import { rule, addRule, updateRule, removeRule } from '@/services/ant-design-pro/api';
+import { rule, addUser, updateRule, removeRule } from '@/services/ant-design-pro/api';
 
 /**
  * @en-US Add node
  * @zh-CN 添加节点
  * @param fields
  */
-const handleAdd = async (fields: API.RuleListItem) => {
+const handleAddUser = async (fields: API.RuleListItem) => {
   const hide = message.loading('正在添加');
   try {
-    await addRule({ ...fields });
+    await addUser({ ...fields });
     hide();
-    message.success('Added successfully');
+    message.success('添加成功');
     return true;
   } catch (error) {
     hide();
@@ -283,15 +283,16 @@ const TableList: React.FC = () => {
         </FooterToolbar>
       )}
       <ModalForm
+        layout="horizontal"
         title={intl.formatMessage({
-          id: 'pages.searchTable.createForm.newRule',
-          defaultMessage: 'New rule',
+          id: 'pages.userAdmin.users.newUser',
+          defaultMessage: '新建用户',
         })}
-        width="400px"
+        width="500px"
         visible={createModalVisible}
         onVisibleChange={handleModalVisible}
         onFinish={async (value) => {
-          const success = await handleAdd(value as API.RuleListItem);
+          const success = await handleAddUser(value as API.RuleListItem);
           if (success) {
             handleModalVisible(false);
             if (actionRef.current) {
@@ -301,22 +302,39 @@ const TableList: React.FC = () => {
         }}
       >
         <ProFormText
+          label="用户名"
           rules={[
             {
               required: true,
               message: (
                 <FormattedMessage
-                  id="pages.searchTable.ruleName"
-                  defaultMessage="Rule name is required"
+                  id="pages.userAdmin.users.name.descLable"
+                  defaultMessage="用户名为必填"
                 />
               ),
             },
           ]}
           width="md"
-          name="name"
+          name="username"
         />
-        <ProFormTextArea width="md" name="desc" />
+        <ProFormText.Password
+          label="密码"
+          rules={[
+            {
+              required: true,
+              message: (
+                <FormattedMessage
+                  id="pages.userAdmin.users.password.required"
+                  defaultMessage="密码为必填"
+                />
+              ),
+            },
+          ]}
+          width="md"
+          name="password"
+        />
       </ModalForm>
+
       <UpdateForm
         onSubmit={async (value) => {
           const success = await handleUpdate(value);
