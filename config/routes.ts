@@ -25,17 +25,35 @@
     component: './Welcome',
   },
   {
+    path: '/user-admin',
+    name: 'user-admin',
+    icon: 'crown',
+    access: 'canAdmin',
+    // component: './Admin',
+    routes: [
+      {
+        path: '/user-admin/users',
+        name: 'users',
+        icon: 'smile',
+        component: './UserAdmin/Users',
+      },
+      {
+        component: './404',
+      },
+    ],
+  },
+  {
     path: '/admin',
     name: 'admin',
     icon: 'crown',
     access: 'canAdmin',
-    component: './Admin',
+    // component: './Admin',
     routes: [
       {
         path: '/admin/sub-page',
         name: 'sub-page',
         icon: 'smile',
-        component: './Welcome',
+        component: './Admin',
       },
       {
         component: './404',
