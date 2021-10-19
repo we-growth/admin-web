@@ -38,12 +38,12 @@ declare namespace API {
     pageSize?: number;
   };
 
-  type RuleListItem = {
+  type UserListItem = {
     key?: number;
     disabled?: boolean;
     href?: string;
     avatar?: string;
-    name?: string;
+    username?: string;
     owner?: string;
     desc?: string;
     callNo?: number;
@@ -53,11 +53,11 @@ declare namespace API {
     progress?: number;
   };
 
-  type RuleList = {
-    data?: RuleListItem[];
+  type UserList = {
+    content?: RuleListItem[];
     /** 列表的内容总数 */
-    total?: number;
-    success?: boolean;
+    totalElements?: number;
+    totalPages?: boolean;
   };
 
   type FakeCaptcha = {

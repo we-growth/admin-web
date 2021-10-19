@@ -19,6 +19,7 @@ const loginOut = async () => {
   await outLogin();
   const { query = {}, pathname } = history.location;
   const { redirect } = query;
+  localStorage.removeItem('Token');
   // Note: There may be security issues, please note
   if (window.location.pathname !== '/user/login' && !redirect) {
     history.replace({

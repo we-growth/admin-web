@@ -10,7 +10,7 @@ import type { ProDescriptionsItemProps } from '@ant-design/pro-descriptions';
 import ProDescriptions from '@ant-design/pro-descriptions';
 import type { FormValueType } from './components/UpdateForm';
 import UpdateForm from './components/UpdateForm';
-import { rule, addUser, updateRule, removeRule } from '@/services/wegrowth/api';
+import { rule, addUser } from '@/services/wegrowth/api';
 
 /**
  * @en-US Add node
@@ -94,8 +94,8 @@ const TableList: React.FC = () => {
   const [showDetail, setShowDetail] = useState<boolean>(false);
 
   const actionRef = useRef<ActionType>();
-  const [currentRow, setCurrentRow] = useState<API.RuleListItem>();
-  const [selectedRowsState, setSelectedRows] = useState<API.RuleListItem[]>([]);
+  const [currentRow, setCurrentRow] = useState<API.UserListItem>();
+  const [selectedRowsState, setSelectedRows] = useState<API.UserListItem[]>([]);
 
   /**
    * @en-US International configuration
@@ -103,10 +103,10 @@ const TableList: React.FC = () => {
    * */
   const intl = useIntl();
 
-  const columns: ProColumns<API.RuleListItem>[] = [
+  const columns: ProColumns<API.UserListItem>[] = [
     {
       title: <FormattedMessage id="pages.userAdmin.users.name.descLable" defaultMessage="用户名" />,
-      dataIndex: 'name',
+      dataIndex: 'username',
       render: (dom, entity) => {
         return (
           <a
@@ -235,7 +235,15 @@ const TableList: React.FC = () => {
             <PlusOutlined /> <FormattedMessage id="pages.searchTable.new" defaultMessage="New" />
           </Button>,
         ]}
-        request={rule}
+        request={async (params: any) => {
+          const { pageSize, current } = params;
+          const res = await rule({ page: current - 1, size: pageSize });
+          return {
+            data: res.content,
+            success: true,
+            total: res.totalElements,
+          };
+        }}
         columns={columns}
         rowSelection={{
           onChange: (_, selectedRows) => {
