@@ -1,6 +1,8 @@
 // @ts-ignore
 /* eslint-disable */
 
+declare const API_URL: string;
+
 declare namespace API {
   type CurrentUser = {
     username?: string;

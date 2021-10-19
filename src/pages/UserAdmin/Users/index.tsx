@@ -10,7 +10,7 @@ import type { ProDescriptionsItemProps } from '@ant-design/pro-descriptions';
 import ProDescriptions from '@ant-design/pro-descriptions';
 import type { FormValueType } from './components/UpdateForm';
 import UpdateForm from './components/UpdateForm';
-import { rule, addUser, updateRule, removeRule } from '@/services/ant-design-pro/api';
+import { rule, addUser, updateRule, removeRule } from '@/services/wegrowth/api';
 
 /**
  * @en-US Add node

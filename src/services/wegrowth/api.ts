@@ -2,15 +2,32 @@
 /* eslint-disable */
 import { extend } from 'umi-request';
 
-const request = extend({
-  headers: {
-    Authorization: 'Bearer ' + localStorage.getItem('Token'),
-  },
+const request = extend({ timeout: 5000 });
+
+//Token的拦截器
+
+request.interceptors.request.use((url, options) => {
+  let token = localStorage.getItem('Token');
+  if (token) {
+    const headers = {
+      Authorization: 'Bearer ' + token,
+    };
+    return {
+      url: url,
+      options: { ...options, headers: headers },
+    };
+  } else {
+    return {
+      url: url,
+      options: { ...options },
+    };
+  }
 });
 
 /** 获取当前的用户 GET /api/currentUser */
 export async function currentUser(options?: { [key: string]: any }) {
-  return request<any>('/uaa/api/currentUser', {
+  console.log('api_url:${API_URL}');
+  return request<any>(`${API_URL}/uaa/api/currentUser`, {
     method: 'GET',
     ...(options || {}),
   });
@@ -18,7 +35,7 @@ export async function currentUser(options?: { [key: string]: any }) {
 
 /** 退出登录接口 POST /api/login/outLogin */
 export async function outLogin(options?: { [key: string]: any }) {
-  return request<Record<string, any>>('/api/login/outLogin', {
+  return request<Record<string, any>>(`${API_URL}/api/login/outLogin`, {
     method: 'POST',
     ...(options || {}),
   });
@@ -26,7 +43,8 @@ export async function outLogin(options?: { [key: string]: any }) {
 
 /** 登录接口 POST /api/login/account */
 export async function login(body: API.LoginParams, options?: { [key: string]: any }) {
-  return request<API.LoginResult>('/as/login', {
+  console.log(`${API_URL}`);
+  return request<API.LoginResult>(`${API_URL}/as/login`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -36,13 +54,13 @@ export async function login(body: API.LoginParams, options?: { [key: string]: an
   });
 }
 
-/** 此处后端没有提供注释 GET /api/notices */
-export async function getNotices(options?: { [key: string]: any }) {
-  return request<API.NoticeIconList>('/api/notices', {
-    method: 'GET',
-    ...(options || {}),
-  });
-}
+// /** 此处后端没有提供注释 GET /api/notices */
+// export async function getNotices(options?: { [key: string]: any }) {
+//   return request<API.NoticeIconList>('/api/notices', {
+//     method: 'GET',
+//     ...(options || {}),
+//   });
+// }
 
 /** 获取规则列表 GET /api/rule */
 export async function rule(
@@ -74,7 +92,7 @@ export async function updateRule(options?: { [key: string]: any }) {
 
 /** 新建用户 POST /api/rule */
 export async function addUser(data?: { [key: string]: any }) {
-  return request<any>('/uaa/api/public/register', {
+  return request<any>(`${API_URL}/uaa/api/public/register`, {
     method: 'POST',
     requestType: 'json',
     data: data,
